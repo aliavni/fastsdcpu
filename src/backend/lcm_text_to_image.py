@@ -732,11 +732,12 @@ class LCMTextToImage:
         lcm_diffusion_setting: LCMDiffusionSetting,
     ):
         config = ModelConfig()
+
         config.model_path = lcm_diffusion_setting.gguf_model.diffusion_path
         config.diffusion_model_path = lcm_diffusion_setting.gguf_model.diffusion_path
-        config.clip_l_path = lcm_diffusion_setting.gguf_model.clip_path
-        config.t5xxl_path = lcm_diffusion_setting.gguf_model.t5xxl_path
+        config.llm_path = lcm_diffusion_setting.gguf_model.t5xxl_path
         config.vae_path = lcm_diffusion_setting.gguf_model.vae_path
+
         config.n_threads = GGUF_THREADS
         print(f"GGUF Threads : {GGUF_THREADS} ")
         print("GGUF - Model config")
@@ -759,7 +760,7 @@ class LCMTextToImage:
             t2iconfig.height = lcm_diffusion_setting.image_height
             t2iconfig.width = lcm_diffusion_setting.image_width
             t2iconfig.sample_steps = lcm_diffusion_setting.inference_steps
-            t2iconfig.sample_method = SampleMethod.EULER
+            t2iconfig.sample_method = SampleMethod.EULER_A
             if lcm_diffusion_setting.use_seed:
                 t2iconfig.seed = lcm_diffusion_setting.seed
             else:

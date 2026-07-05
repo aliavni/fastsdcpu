@@ -114,20 +114,10 @@ def get_models_ui() -> None:
                 interactive=True,
             )
         with gr.Row():
-            gguf_clip_model_id = gr.Dropdown(
-                app_settings.gguf_clip_models,
-                label="GGUF CLIP model",
-                info="GGUF CLIP model ",
-                value=get_valid_model_id(
-                    app_settings.gguf_clip_models,
-                    app_settings.settings.lcm_diffusion_setting.gguf_model.clip_path,
-                ),
-                interactive=True,
-            )
             gguf_t5xxl_model_id = gr.Dropdown(
                 app_settings.gguf_t5xxl_models,
-                label="GGUF T5-XXL model",
-                info="GGUF T5-XXL model ",
+                label="GGUF LLM model",
+                info="GGUF LLM model ",
                 value=get_valid_model_id(
                     app_settings.gguf_t5xxl_models,
                     app_settings.settings.lcm_diffusion_setting.gguf_model.t5xxl_path,
@@ -165,10 +155,6 @@ def get_models_ui() -> None:
         gguf_diffusion_model_id.change(
             change_gguf_diffusion_model,
             gguf_diffusion_model_id,
-        )
-        gguf_clip_model_id.change(
-            change_gguf_clip_model,
-            gguf_clip_model_id,
         )
         gguf_t5xxl_model_id.change(
             change_gguf_t5xxl_model,

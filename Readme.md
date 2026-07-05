@@ -17,7 +17,7 @@ The following interfaces are available :
 🚀 Using **OpenVINO(SDXS-512-0.9)**, it took **0.82 seconds** (**820 milliseconds**) to create a single 512x512 image on a **Core i7-12700**.
 
 ## 📰 News
-
+- **2026-07-05** - Add bonsai image (1 bit) GGUF support, Flux2 Klein GGUF support
 - **2026-06-21** - Added FLUX.2-klein-4B support(OpenVINO), image editing support, photo restoration, colorization (2 to 4 steps)
 - **2026-05-01** - Docker support, HF demo 
 - **2025-12-22** - FastSD engine integrated into [Intel's OpenVINO™ AI Plugins for GIMP](https://github.com/intel/openvino-ai-plugins-gimp)
@@ -154,6 +154,7 @@ If we enable Tiny decoder(TAESD) we can save some memory(2GB approx) for example
 - Add single file SDXL safetensor file support,thanks [monstruosoft](https://github.com/monstruosoft)
 - Add FLUX.2-klein-4B OpenVINO support
 - Add image editing support
+- Add bonsai image (1 bit) GGUF support, Flux 2 Klein GGUF model support
 
 
 <a id="fast-inference-benchmarks"></a>
@@ -586,48 +587,32 @@ To generate an image a minimal request `POST /api/generate` with body :
 
 <a id="gguf-support"></a>
 
-## GGUF support - Flux
+## GGUF Support - Flux 2 (Lower Quantization)
 
-[GGUF](https://github.com/ggerganov/ggml/blob/master/docs/gguf.md) Flux model supported via [stablediffusion.cpp](https://github.com/leejet/stable-diffusion.cpp) shared library. Currently Flux Schenell model supported.
+[GGUF](https://github.com/ggerganov/ggml/blob/master/docs/gguf.md) models for Flux 2 are supported via the [stable-diffusion.cpp](https://github.com/leejet/stable-diffusion.cpp) shared library. Currently, the Flux 2 Klein model is supported.
 
-To use GGUF model use web UI and select GGUF mode.
+To use a GGUF model, open the web UI and select GGUF mode.
 
-Tested on Windows and Linux.
+- **Quantization levels:** 4-bit down to 1-bit
+- **Supported mode:** Text-to-image
+- **Tested on:** Windows, Linux
 
-:exclamation: Main advantage here we reduced minimum system RAM required for Flux workflow to around **12 GB**.
-
-Supported mode - Text to image
-
-### How to run Flux GGUF model
+### How to run Flux 2 klein GGUF model 
 
 - Download stablediffusion.cpp prebuilt shared library and place it inside fastsdcpu folder
-  For Windows users, download [stable-diffusion.dll](https://huggingface.co/rupeshs/FastSD-Flux-GGUF/blob/main/stable-diffusion.dll)
+  For Windows users, download [stable-diffusion.dll](https://huggingface.co/rupeshs/FastSD-Flux2-GGUF/blob/main/stable-diffusion.dll)
 
-  For Linux users download [libstable-diffusion.so](https://huggingface.co/rupeshs/FastSD-Flux-GGUF/blob/main/libstable-diffusion.so)
+  For Linux users download [libstable-diffusion.so](https://huggingface.co/rupeshs/FastSD-Flux2-GGUF/blob/main/libstable-diffusion.so)
 
   You can also build the library manully by following the guide *"Build stablediffusion.cpp shared library for GGUF flux model support"*
 
-- Download **diffusion model** from [flux1-schnell-q4_0.gguf](https://huggingface.co/rupeshs/FastSD-Flux-GGUF/blob/main/flux1-schnell-q4_0.gguf) and place it inside `models/gguf/diffusion` directory
-- Download **clip model** from [clip_l_q4_0.gguf](https://huggingface.co/rupeshs/FastSD-Flux-GGUF/blob/main/clip_l_q4_0.gguf) and place it inside `models/gguf/clip` directory
-- Download **T5-XXL model** from [t5xxl_q4_0.gguf](https://huggingface.co/rupeshs/FastSD-Flux-GGUF/blob/main/t5xxl_q4_0.gguf) and place it inside `models/gguf/t5xxl` directory
-- Download **VAE model** from [ae.safetensors](https://huggingface.co/black-forest-labs/FLUX.1-schnell/blob/main/ae.safetensors) and place it inside `models/gguf/vae` directory
+- 1 bit model - Download **diffusion model** from [bonsai_image_4b-q1_0](https://huggingface.co/rupeshs/FastSD-Flux2-GGUF/blob/main/bonsai_image_4b-q1_0.gguf) and place it inside `models/gguf/diffusion` directory
+- 4 bit model - Download **diffusion model** from [flux-2-klein-4b-Q4_K_M.gguf](https://huggingface.co/rupeshs/FastSD-Flux2-GGUF/blob/main/flux-2-klein-4b-Q4_K_M.gguf) and place it inside `models/gguf/diffusion` directory
+- Download **LLM model** from [Qwen3-4B-Q4_K_M.gguf](https://huggingface.co/rupeshs/FastSD-Flux2-GGUF/blob/main/Qwen3-4B-Q4_K_M.gguf) and place it inside `models/gguf/llm` directory
+- Download **VAE model** from [ae.safetensors](https://huggingface.co/rupeshs/FastSD-Flux2-GGUF/blob/main/ae.safetensors) and place it inside `models/gguf/vae` directory
 - Start web UI and select GGUF mode
-- Select the models settings tab and select GGUF diffusion,clip_l,t5xxl and VAE models.
+- Select the models settings tab and select GGUF diffusion,LLM and VAE models.
 - Enter your prompt and generate image
-
-### Build stablediffusion.cpp shared library for GGUF flux model support(Optional)
-
-To build the stablediffusion.cpp library follow these steps
-
-- `git clone https://github.com/leejet/stable-diffusion.cpp`
-- `cd stable-diffusion.cpp`
-- `git pull origin master`
-- `git submodule init`
-- `git submodule update`
-- `git checkout 14206fd48832ab600d9db75f15acb5062ae2c296`
-- `cmake . -DSD_BUILD_SHARED_LIBS=ON`
-- `cmake --build . --config Release`
-- Copy the stablediffusion dll/so file to fastsdcpu folder
 
 <a id="ai-pc-support"></a>
 
