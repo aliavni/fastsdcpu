@@ -32,9 +32,6 @@ class AppSettings:
         self._gguf_diffusion_models = get_files_in_dir(
             join_paths(FastStableDiffusionPaths().get_gguf_models_path(), "diffusion")
         )
-        self._gguf_clip_models = get_files_in_dir(
-            join_paths(FastStableDiffusionPaths().get_gguf_models_path(), "clip")
-        )
         self._gguf_vae_models = get_files_in_dir(
             join_paths(FastStableDiffusionPaths().get_gguf_models_path(), "vae")
         )
