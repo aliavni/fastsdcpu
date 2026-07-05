@@ -39,7 +39,7 @@ class AppSettings:
             join_paths(FastStableDiffusionPaths().get_gguf_models_path(), "vae")
         )
         self._gguf_t5xxl_models = get_files_in_dir(
-            join_paths(FastStableDiffusionPaths().get_gguf_models_path(), "t5xxl")
+            join_paths(FastStableDiffusionPaths().get_gguf_models_path(), "llm")
         )
         self._config = None
 
