@@ -744,7 +744,7 @@ Run  `start-mcpserver.sh` for Linux and  `start-mcpserver.bat` for Windows.
 
 ## ComfyUI support
 
-FastSD can be used with ComfyUI with [ComfyUI-FastSDCPU node](https://github.com/BetaDoggo/ComfyUI-FastSDCPU). To use it follow this [step by step guide](https://nolowiz.com/how-to-use-comfyui-with-fastsdcpu-and-openvino/). To use NPU set environment variable "DEVICE=NPU" and choose "rupeshs/sd15-lcm-square-openvino-int8" as your OpenVINO Model.
+FastSD can be used with ComfyUI with [ComfyUI-FastSDCPU node](https://github.com/rupeshs/ComfyUI-FastSDCPU). To use it follow this [step by step guide](https://nolowiz.com/how-to-use-comfyui-with-fastsdcpu-and-openvino/). To use NPU set environment variable "DEVICE=NPU" and choose "rupeshs/sd15-lcm-square-openvino-int8" as your OpenVINO Model.
 
 ![Comfyui OpenVINO text to image workflow](https://raw.githubusercontent.com/rupeshs/fastsdcpu/refs/heads/add-sana-sprint-support/docs/images/comfyui-workflow.png)
 
